@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://ccg0fovek0xwq"]
+
+[ext_resource type="Script" uid="uid://cimttgo1pqcae" path="res://scenes/level.gd" id="1_ppgk2"]
+[ext_resource type="Texture2D" uid="uid://d1kvlprbahjm0" path="res://assets/Backgrounds/darkPurple.png" id="1_w8frs"]
+[ext_resource type="Script" uid="uid://daesom4r3are2" path="res://scenes/meteor.gd" id="3_mx8sn"]
+[ext_resource type="PackedScene" uid="uid://cli4gcnwsuadq" path="res://scenes/player.tscn" id="3_ppgk2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_unagb"]
+size = Vector2(108.375, 781)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mx8sn"]
+size = Vector2(1369, 76)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_mx8sn"]
+load_path = "res://.godot/imported/meteorBrown_big4.png-bb0c72654981f9e25648bc5d3ea19ca7.ctex"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_unagb"]
+radius = 95.63472
+
+[node name="level" type="Node2D" unique_id=1766413186]
+script = ExtResource("1_ppgk2")
+
+[node name="bg" type="Sprite2D" parent="." unique_id=387803540]
+
+[node name="DarkPurple" type="Sprite2D" parent="bg" unique_id=587911447]
+position = Vector2(639, 361.99997)
+scale = Vector2(5.2031255, 2.96875)
+texture = ExtResource("1_w8frs")
+
+[node name="player" parent="." unique_id=2056175732 instance=ExtResource("3_ppgk2")]
+position = Vector2(40, 34)
+
+[node name="border" type="Node2D" parent="." unique_id=452049738]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="border" unique_id=780562620]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="border/StaticBody2D" unique_id=356868736]
+position = Vector2(1334, 366)
+shape = SubResource("RectangleShape2D_unagb")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="border/StaticBody2D" unique_id=740531171]
+position = Vector2(-56, 358)
+shape = SubResource("RectangleShape2D_unagb")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="border/StaticBody2D" unique_id=467151792]
+position = Vector2(654, -40)
+shape = SubResource("RectangleShape2D_mx8sn")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="border/StaticBody2D" unique_id=1945528667]
+position = Vector2(630, 761)
+shape = SubResource("RectangleShape2D_mx8sn")
+
+[node name="meteor" type="Area2D" parent="." unique_id=243576095]
+visible = false
+collision_layer = 2
+collision_mask = 9
+script = ExtResource("3_mx8sn")
+
+[node name="MeteorBrownBig4" type="Sprite2D" parent="meteor" unique_id=2049086909]
+position = Vector2(883.5, 457)
+scale = Vector2(2.1734693, 2)
+texture = SubResource("CompressedTexture2D_mx8sn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="meteor" unique_id=1151377095]
+position = Vector2(884, 460)
+shape = SubResource("CircleShape2D_unagb")
+
+[node name="meteor_timer" type="Timer" parent="." unique_id=174599448]
+wait_time = 0.2
+autostart = true
+
+[node name="laser" type="Node" parent="." unique_id=331669406]
+
+[connection signal="laser" from="player" to="." method="_on_player_laser"]
+[connection signal="body_entered" from="meteor" to="meteor" method="_on_body_entered"]
+[connection signal="timeout" from="meteor_timer" to="." method="_on_meteor_timer_timeout"]

@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://brqkthea57ngx"]
+
+[ext_resource type="Script" uid="uid://daesom4r3are2" path="res://scenes/meteor.gd" id="1_pxso2"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_mx8sn"]
+load_path = "res://.godot/imported/meteorBrown_big4.png-bb0c72654981f9e25648bc5d3ea19ca7.ctex"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8tfog"]
+radius = 59.135437
+
+[node name="meteor" type="Area2D" unique_id=274849095]
+collision_layer = 2
+collision_mask = 9
+script = ExtResource("1_pxso2")
+
+[node name="MeteorBrownBig4" type="Sprite2D" parent="." unique_id=1264745047]
+scale = Vector2(1.2525511, 1.0989584)
+texture = SubResource("CompressedTexture2D_mx8sn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=565048989]
+shape = SubResource("CircleShape2D_8tfog")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
